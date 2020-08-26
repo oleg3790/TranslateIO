@@ -41,6 +41,11 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
+"@types/google-translate-api@^2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@types/google-translate-api/-/google-translate-api-2.3.1.tgz#118fd982a90da3b137eec477c52fdf43dfb3335d"
+  integrity sha512-XCtDXmoOzyWvzK+Zs2nXiY+D8LdydmX0GkFaP9qXMD3n30RM5TauueA+JoPfHHgCxGYbKfZqXmRIRCczjcSXfg==
+
 "@types/json-schema@^7.0.3":
   version "7.0.5"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.5.tgz#dcce4430e64b443ba8945f0290fb564ad5bac6dd"
