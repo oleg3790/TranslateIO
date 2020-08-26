@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import translate = require('google-translate-api');
+const translate = require('@vitalets/google-translate-api');
 
 export function activate(context: vscode.ExtensionContext) {
 
