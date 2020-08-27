@@ -1,29 +1,18 @@
-TranslateIO is a VS code extension that helps you translate specific strings or bulk translate. Simply highlight your target and hit the shortcut to translate the string(s) on the spot.
+## Overview
+TranslateIO is a VS code extension that helps you translate specific strings or bulk translate. Simply highlight your target text and execute the desired command to translate on the spot.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+ * **Translate and Replace command**: Highlight your target text and execute the command to replace the highlighted content with the translated version.
 
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+ ![Translate and Replace](docs/TranslateAndReplace.gif)
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
 This extension contributes the following settings:
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+* `translateIO.fromLanguage`: Select the language to translate from (default English)
+* `translateIO.toLanguage`: Select the language to translate to (default Spanish)
 
 ## Release Notes
 

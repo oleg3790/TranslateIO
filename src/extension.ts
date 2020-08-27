@@ -51,7 +51,7 @@ const replaceHighlightedContent = (replaceWith: string): void => {
 };
 
 const getTranslationConfig = (): { from: string | undefined, to: string | undefined }  => {
-	const config = vscode.workspace.getConfiguration('translateio');
+	const config = vscode.workspace.getConfiguration('translateIO');
 	return {
 		to: config.get<string>('toLanguage'),
 		from: config.get<string>('fromLanguage')

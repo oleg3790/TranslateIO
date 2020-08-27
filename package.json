@@ -10,7 +10,7 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:translateio.translate"
+		"onCommand:translateIO.translateAllReplace"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
