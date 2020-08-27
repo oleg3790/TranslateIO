@@ -17,7 +17,7 @@
 		"commands": [
 			{
 				"command": "translateIO.translateAllReplace",
-				"title": "Translate All and Replace",
+				"title": "Translate and Replace",
 				"category": "TranslateIO"
 			}
 		],
