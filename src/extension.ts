@@ -1,7 +1,9 @@
 import * as vscode from 'vscode';
 const translate = require('@vitalets/google-translate-api');
 
-const getHighlightedText = (): string | undefined => {
+const informUserToHighlight = () => vscode.window.showInformationMessage('Highlight some text to translate');
+
+const getHighlightedRange = (): vscode.Range | null => {
 	const currentEditor = vscode.window.activeTextEditor;
 	const currentSelection = currentEditor?.selection;
 
@@ -10,15 +12,42 @@ const getHighlightedText = (): string | undefined => {
 
 	// If there is a selection range, parse
 	if (start && end && start.character !== end.character) {
-		const selectionRange = new vscode.Range(start, end);
-		const highlightedText = currentEditor?.document.getText(selectionRange);
+		return new vscode.Range(start, end);
+	}
+
+	return null;
+};
+
+const getHighlightedText = (): string | null => {
+	const currentEditor = vscode.window.activeTextEditor;
+	const highlightedRange = getHighlightedRange();
+
+	if (highlightedRange) {
+		const highlightedText = currentEditor?.document.getText(highlightedRange);
 
 		if (highlightedText) {
 			return highlightedText;
 		}
 	}
 
-	vscode.window.showInformationMessage('Highlight some text to translate');
+	return null;
+};
+
+const replaceHighlightedContent = (replaceWith: string): void => {
+	const highlightedRange = getHighlightedRange();
+
+	if (highlightedRange) {
+		const currentEditor = vscode.window.activeTextEditor;
+		
+		currentEditor?.edit(editBuilder => {
+			editBuilder.replace(highlightedRange, replaceWith);
+		});
+
+		return;
+	}
+
+	// If we get here, throw
+	throw new Error('No highlight range could be determined');
 };
 
 const getTranslationConfig = (): { from: string | undefined, to: string | undefined }  => {
@@ -32,11 +61,16 @@ const getTranslationConfig = (): { from: string | undefined, to: string | undefi
 const translateContent = async () => {
 	try {
 		const highlightedText = getHighlightedText();
-		const config = getTranslationConfig();
 
-		const result = await translate(highlightedText, { from: config.from, to: config.to });
+		if (highlightedText) {
+			const config = getTranslationConfig();
+			const result = await translate(highlightedText, { from: config.from, to: config.to });
+			replaceHighlightedContent(result.text);
+			vscode.window.showInformationMessage(`Translated Successfully!`);
+			return;
+		}
 
-		vscode.window.showInformationMessage(`Translated Successfully!`);
+		informUserToHighlight();
 	} catch (ex) {
 		vscode.window.showErrorMessage('Error encountered while attempting to translate content');
 	}

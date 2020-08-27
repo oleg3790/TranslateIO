@@ -22,9 +22,9 @@
 			}
 		],
 		"configuration": {
-			"title": "Translate Config",
+			"title": "TranslateIO Config",
 			"properties": {
-				"translateio.fromLanguage": {
+				"translateIO.fromLanguage": {
 					"type": "string",
 					"default": "en",
 					"description": "The language from which to translate",
@@ -241,7 +241,7 @@
 						"Zulu"
 					]
 				},
-				"translateio.toLanguage": {
+				"translateIO.toLanguage": {
 					"type": "string",
 					"default": "es",
 					"description": "The language to translate to",
