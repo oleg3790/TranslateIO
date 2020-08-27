@@ -58,7 +58,7 @@ const getTranslationConfig = (): { from: string | undefined, to: string | undefi
 	};
 };
 
-const translateContent = async () => {
+const translateAllAndReplace = async () => {
 	try {
 		const highlightedText = getHighlightedText();
 
@@ -78,9 +78,9 @@ const translateContent = async () => {
 
 export function activate(context: vscode.ExtensionContext) {
 
-	let translateCommand = vscode.commands.registerCommand('translateio.translate', async () => translateContent());
+	let translateAllReplaceCommand = vscode.commands.registerCommand('translateIO.translateAllReplace', async () => translateAllAndReplace());
 
-	context.subscriptions.push(translateCommand);
+	context.subscriptions.push(translateAllReplaceCommand);
 }
 
 export function deactivate() {}

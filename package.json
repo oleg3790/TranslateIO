@@ -16,8 +16,8 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "translateio.translate",
-				"title": "Translate",
+				"command": "translateIO.translateAllReplace",
+				"title": "Translate All and Replace",
 				"category": "TranslateIO"
 			}
 		],
