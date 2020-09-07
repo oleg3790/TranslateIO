@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 const translate = require('@vitalets/google-translate-api');
 
-const STRING_VARIANCE_REGEX: RegExp = /(')|(")/g;
+const STRING_VARIANCE_REGEX: RegExp = /['"']/g;
 
 const informUserToHighlight = () => vscode.window.showInformationMessage('Highlight some text to translate');
 
