@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 const translate = require('@vitalets/google-translate-api');
 
 const STRING_VARIANCE_REGEX: RegExp = /['"']/g;
+const STRING_CONTENT_REGEX: RegExp = /["\"'"].+?["\"'"]/g;
 
 const informUserToHighlight = () => vscode.window.showInformationMessage('Highlight some text to translate');
 
@@ -13,7 +14,8 @@ const getHighlightedRange = (): vscode.Range | null => {
 	const end = currentSelection?.end;
 
 	// If there is a selection range, parse
-	if (start && end && start.character !== end.character) {
+	if (start && end 
+		&& (start.character !== end.character || start.line !== end.line)) {
 		return new vscode.Range(start, end);
 	}
 
@@ -50,6 +52,14 @@ const replaceHighlightedContent = (replaceWith: string): void => {
 
 	// If we get here, throw
 	throw new Error('No highlight range could be determined');
+};
+
+const getTranslationConfig = (): { from: string | undefined, to: string | undefined }  => {
+	const config = vscode.workspace.getConfiguration('translateIO');
+	return {
+		to: config.get<string>('toLanguage'),
+		from: config.get<string>('fromLanguage')
+	};
 };
 
 const verifyStringsInHighlightedText = (highlightedText: string): boolean => {
@@ -89,12 +99,23 @@ const verifyStringsInHighlightedText = (highlightedText: string): boolean => {
 	return true;
 };
 
-const getTranslationConfig = (): { from: string | undefined, to: string | undefined }  => {
-	const config = vscode.workspace.getConfiguration('translateIO');
-	return {
-		to: config.get<string>('toLanguage'),
-		from: config.get<string>('fromLanguage')
-	};
+const doTranslateStrings = async (text: string): Promise<string> => {
+	const stringMatches = text.match(STRING_CONTENT_REGEX);
+	let translatedText = text;
+
+	if (stringMatches) {
+		for (let i = 0; i < stringMatches.length; i++) {
+			const config = getTranslationConfig();
+			const content = stringMatches[i];
+			const translateResult = await translate(content, { ...config });
+
+			translatedText = translatedText.replace(content, translateResult.text);
+		}
+
+		return translatedText;
+	}
+	
+	throw new Error('No string content found');
 };
 
 const setup = async (translateCallback: (highlightedText: string) => Promise<boolean>) => {
@@ -102,7 +123,7 @@ const setup = async (translateCallback: (highlightedText: string) => Promise<boo
 		const text = getHighlightedText();
 
 		if (text) {
-			var isSuccessful = await translateCallback(text);
+			const isSuccessful = await translateCallback(text);
 
 			if (isSuccessful) {
 				vscode.window.showInformationMessage('Translated Successfully!');
@@ -122,17 +143,18 @@ const setup = async (translateCallback: (highlightedText: string) => Promise<boo
 const translateAllAndReplace = async () =>
 	setup(async (highlightedText) => {
 		const config = getTranslationConfig();
-		const result = await translate(highlightedText, { from: config.from, to: config.to });
+		const result = await translate(highlightedText, { ...config });
 		replaceHighlightedContent(result.text);
 		return true;
 	});
 
 const translateStringsAndReplace = async () =>
 	setup(async (highlightedText) => {
-		var isVerified = verifyStringsInHighlightedText(highlightedText);
+		const isVerified = verifyStringsInHighlightedText(highlightedText);
 		
 		if (isVerified) {
-
+			const result = await doTranslateStrings(highlightedText);
+			replaceHighlightedContent(result);
 			return true;
 		}
 
