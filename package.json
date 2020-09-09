@@ -10,7 +10,8 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:translateIO.translateAllReplace"
+		"onCommand:translateIO.translateAllReplace",
+		"onCommand:translateIO.translateStringsReplace"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -18,6 +19,11 @@
 			{
 				"command": "translateIO.translateAllReplace",
 				"title": "Translate and Replace",
+				"category": "TranslateIO"
+			},
+			{
+				"command": "translateIO.translateStringsReplace",
+				"title": "Translate Strings and Replace",
 				"category": "TranslateIO"
 			}
 		],

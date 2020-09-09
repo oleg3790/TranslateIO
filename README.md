@@ -7,6 +7,10 @@ TranslateIO is a VS code extension that helps you translate specific strings or 
 
  ![Translate and Replace](docs/TranslateAndReplace.gif)
 
+  * **Translate Strings and Replace command**: Highlight a range of code and execute the command to replace only strings with the translated version.
+
+ ![Translate Strings and Replace](docs/TranslateStringsAndReplace.gif)
+
 ## Extension Settings
 
 This extension contributes the following settings:
