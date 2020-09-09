@@ -3,6 +3,12 @@
 	"displayName": "TranslateIO",
 	"description": "Save time by translating your strings one-by-one or in bulk",
 	"version": "1.0.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/oleg3790/TranslateIO"
+	},
+	"publisher": "OKrysko",
+	"icon": "images/icon.png",
 	"engines": {
 		"vscode": "^1.46.0"
 	},
