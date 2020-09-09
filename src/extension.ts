@@ -106,10 +106,19 @@ const doTranslateStrings = async (text: string): Promise<string> => {
 	if (stringMatches) {
 		for (let i = 0; i < stringMatches.length; i++) {
 			const config = getTranslationConfig();
-			const content = stringMatches[i];
+			let content = stringMatches[i];
+
+			// Strip out quotes before passing content to translate
+			const firstQuoteChar = content.match(/^./)?.[0];
+			const lastQuoteChar = content.match(/.$/)?.[0];
+			content = content.substr(1, content.length - 2);
+
 			const translateResult = await translate(content, { ...config });
 
-			translatedText = translatedText.replace(content, translateResult.text);
+			// Add back quotes on replace
+			translatedText = translatedText.replace(
+				`${firstQuoteChar}${content}${lastQuoteChar}`,
+				`${firstQuoteChar}${translateResult.text}${lastQuoteChar}`);
 		}
 
 		return translatedText;
