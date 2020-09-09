@@ -2,7 +2,7 @@
 	"name": "translateio",
 	"displayName": "TranslateIO",
 	"description": "Save time by translating your strings one-by-one or in bulk",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/oleg3790/TranslateIO"
