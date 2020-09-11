@@ -28,6 +28,6 @@ Initial release of TranslateIO
 
 Update logo
 
-### 1.0.2
+### 1.1.0
 
 Add auto language detection and set as default fromLanguage
