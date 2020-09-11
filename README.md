@@ -23,3 +23,11 @@ This extension contributes the following settings:
 ### 1.0.0
 
 Initial release of TranslateIO
+
+### 1.0.1
+
+Update logo
+
+### 1.0.2
+
+Add auto language detection and set as default fromLanguage
