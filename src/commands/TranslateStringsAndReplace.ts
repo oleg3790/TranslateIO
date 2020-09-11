@@ -17,7 +17,7 @@ export const translateStringsAndReplace = async () =>
     });
     
 
-export const doTranslateStrings = async (text: string): Promise<string> => {
+const doTranslateStrings = async (text: string): Promise<string> => {
     const stringMatches = text.match(STRING_CONTENT_REGEX);
     let translatedText = text;
 
@@ -51,7 +51,7 @@ export const doTranslateStrings = async (text: string): Promise<string> => {
     throw new Error('No string content found');
 };
 
-export const verifyStringsInHighlightedText = (highlightedText: string): boolean => {
+const verifyStringsInHighlightedText = (highlightedText: string): boolean => {
 	const stringVarianceMatches = highlightedText.match(STRING_VARIANCE_REGEX);
 
 	if (stringVarianceMatches === null) {
