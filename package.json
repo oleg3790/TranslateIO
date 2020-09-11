@@ -38,9 +38,10 @@
 			"properties": {
 				"translateIO.fromLanguage": {
 					"type": "string",
-					"default": "en",
+					"default": "auto",
 					"description": "The language from which to translate",
 					"enum": [
+						"auto",
 						"af",
 						"sq",
 						"am",
@@ -147,6 +148,7 @@
 						"zu"
 					],
 					"enumDescriptions": [
+						"Automatic",
 						"Afrikaans",
 						"Albanian",
 						"Amharic",
